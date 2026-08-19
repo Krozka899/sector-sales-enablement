@@ -7,6 +7,7 @@ import {
   CodeXml,
   Copy,
   Factory,
+  HardHat,
   MessageSquareText,
   RadioTower,
   Store,
@@ -21,7 +22,16 @@ const sectorIcons = {
   factory: Factory,
   store: Store,
   code: CodeXml,
+  'hard-hat': HardHat,
 }
+
+const sectorGridPositions = [
+  'xl:col-start-1 xl:row-start-1',
+  'xl:col-start-3 xl:row-start-1',
+  'xl:col-start-5 xl:row-start-1',
+  'xl:col-start-2 xl:row-start-2',
+  'xl:col-start-4 xl:row-start-2',
+]
 
 const categories = [
   {
@@ -128,8 +138,8 @@ function SectorExplorer() {
           description="Select your customer's sector to prepare for a stronger conversation."
         />
 
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" role="group" aria-label="Available sectors">
-          {sectors.map((sector) => {
+        <div className="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-6" role="group" aria-label="Available sectors">
+          {sectors.map((sector, index) => {
             const Icon = sectorIcons[sector.icon]
             const selected = sector.id === selectedSectorId
 
@@ -139,7 +149,7 @@ function SectorExplorer() {
                 type="button"
                 aria-pressed={selected}
                 onClick={() => selectSector(sector.id)}
-                className={`group relative min-h-44 overflow-hidden rounded-2xl border p-5 text-left transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e60000] ${
+                className={`group relative min-h-44 overflow-hidden rounded-2xl border p-5 text-left transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e60000] xl:col-span-2 ${sectorGridPositions[index] ?? ''} ${
                   selected
                     ? 'border-[#e60000] bg-[#e60000] text-white shadow-[0_16px_40px_rgba(230,0,0,0.2)]'
                     : 'border-slate-200 bg-white text-[#1b1b1b] hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-lg'
