@@ -26,11 +26,11 @@ const sectorIcons = {
 }
 
 const sectorGridPositions = [
-  'xl:col-start-1 xl:row-start-1',
-  'xl:col-start-3 xl:row-start-1',
-  'xl:col-start-5 xl:row-start-1',
-  'xl:col-start-2 xl:row-start-2',
-  'xl:col-start-4 xl:row-start-2',
+  'laptop:col-start-1 laptop:row-start-1 2xl:col-start-auto 2xl:row-start-auto',
+  'laptop:col-start-3 laptop:row-start-1 2xl:col-start-auto 2xl:row-start-auto',
+  'laptop:col-start-5 laptop:row-start-1 2xl:col-start-auto 2xl:row-start-auto',
+  'laptop:col-start-2 laptop:row-start-2 2xl:col-start-auto 2xl:row-start-auto',
+  'laptop:col-start-4 laptop:row-start-2 2xl:col-start-auto 2xl:row-start-auto',
 ]
 
 const categories = [
@@ -130,7 +130,7 @@ function SectorExplorer() {
   }
 
   return (
-    <section id="sectors" className="scroll-mt-20 bg-[#f5f6f7] py-20 sm:py-24 xl:py-16 2xl:py-24">
+    <section id="sectors" className="scroll-mt-20 bg-[#f5f6f7] py-20 sm:py-24 laptop:py-14 2xl:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Sector explorer"
@@ -138,7 +138,7 @@ function SectorExplorer() {
           description="Select your customer's sector to prepare for a stronger conversation."
         />
 
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 xl:mt-8 xl:grid-cols-6 2xl:mt-10" role="group" aria-label="Available sectors">
+        <div className="mt-10 grid gap-3 sm:grid-cols-2 laptop:mt-6 laptop:grid-cols-6 laptop:gap-2 2xl:mt-10 2xl:grid-cols-5 2xl:gap-3" role="group" aria-label="Available sectors">
           {sectors.map((sector, index) => {
             const Icon = sectorIcons[sector.icon]
             const selected = sector.id === selectedSectorId
@@ -149,25 +149,27 @@ function SectorExplorer() {
                 type="button"
                 aria-pressed={selected}
                 onClick={() => selectSector(sector.id)}
-                className={`group relative min-h-44 overflow-hidden rounded-2xl border p-5 text-left transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e60000] xl:col-span-2 xl:min-h-40 xl:p-4 2xl:min-h-44 2xl:p-5 ${sectorGridPositions[index] ?? ''} ${
+                className={`group relative min-h-44 overflow-hidden rounded-2xl border p-5 text-left transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e60000] laptop:col-span-2 laptop:flex laptop:min-h-[112px] laptop:items-start laptop:gap-3 laptop:p-3.5 2xl:col-span-1 2xl:block 2xl:min-h-44 2xl:p-5 ${sectorGridPositions[index] ?? ''} ${
                   selected
                     ? 'border-[#e60000] bg-[#e60000] text-white shadow-[0_16px_40px_rgba(230,0,0,0.2)]'
                     : 'border-slate-200 bg-white text-[#1b1b1b] hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-lg'
                 }`}
               >
-                <span className={`grid size-11 place-items-center rounded-xl ${selected ? 'bg-white/15 text-white' : 'bg-slate-100 text-slate-700 group-hover:bg-red-50 group-hover:text-[#e60000]'}`}>
+                <span className={`grid size-11 shrink-0 place-items-center rounded-xl laptop:size-9 2xl:size-11 ${selected ? 'bg-white/15 text-white' : 'bg-slate-100 text-slate-700 group-hover:bg-red-50 group-hover:text-[#e60000]'}`}>
                   <Icon size={22} strokeWidth={1.8} aria-hidden="true" />
                 </span>
-                <span className="mt-5 block text-base leading-snug font-bold xl:mt-4 2xl:mt-5">{sector.name}</span>
-                <span className={`mt-2 block text-xs leading-5 ${selected ? 'text-white/75' : 'text-slate-500'}`}>{sector.description}</span>
-                {selected && <Check className="absolute top-5 right-5" size={19} aria-hidden="true" />}
+                <span className="block laptop:min-w-0 laptop:flex-1 laptop:pr-5 2xl:pr-0">
+                  <span className="mt-5 block text-base leading-snug font-bold laptop:mt-0 2xl:mt-5">{sector.name}</span>
+                  <span className={`mt-2 block text-xs leading-5 laptop:mt-1 2xl:mt-2 ${selected ? 'text-white/75' : 'text-slate-500'}`}>{sector.description}</span>
+                </span>
+                {selected && <Check className="absolute top-5 right-5 laptop:top-3.5 laptop:right-3.5 2xl:top-5 2xl:right-5" size={19} aria-hidden="true" />}
               </button>
             )
           })}
         </div>
 
-        <div className="mt-8 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_55px_rgba(15,23,42,0.08)] xl:mt-6 2xl:mt-8">
-          <div className="border-b border-slate-200 px-5 py-6 sm:px-8 xl:py-4 2xl:py-6">
+        <div className="mt-8 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_55px_rgba(15,23,42,0.08)] laptop:mt-5 2xl:mt-8">
+          <div className="border-b border-slate-200 px-5 py-6 sm:px-8 laptop:px-6 laptop:py-3.5 2xl:px-8 2xl:py-6">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="flex items-center gap-2 text-xs font-bold tracking-[0.16em] text-[#d90000] uppercase">
@@ -197,7 +199,7 @@ function SectorExplorer() {
                     tabIndex={selected ? 0 : -1}
                     onClick={() => selectCategory(category.id)}
                     onKeyDown={handleTabKeyDown}
-                    className={`relative flex items-center gap-2 px-3 py-4 text-sm font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#e60000] sm:px-4 xl:py-3 2xl:py-4 ${
+                    className={`relative flex items-center gap-2 px-3 py-4 text-sm font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#e60000] sm:px-4 laptop:py-3 2xl:py-4 ${
                       selected ? 'text-[#1b1b1b]' : 'text-slate-500 hover:text-slate-800'
                     }`}
                   >
@@ -215,9 +217,9 @@ function SectorExplorer() {
             id="sector-panel"
             role="tabpanel"
             aria-labelledby={`tab-${selectedCategoryId}`}
-            className="p-5 sm:p-8 xl:p-5 2xl:p-8"
+            className="p-5 sm:p-8 laptop:p-4 2xl:p-8"
           >
-            <div className="mb-6 flex items-start gap-4 xl:mb-4 2xl:mb-6">
+            <div className="mb-6 flex items-start gap-4 laptop:mb-3 2xl:mb-6">
               <span className={`grid size-11 shrink-0 place-items-center rounded-xl ${styles.icon}`}>
                 <CategoryIcon size={21} strokeWidth={1.8} aria-hidden="true" />
               </span>
@@ -227,9 +229,9 @@ function SectorExplorer() {
               </div>
             </div>
 
-            <ol className="grid gap-3 lg:grid-cols-2 xl:gap-2.5 2xl:gap-3">
+            <ol className="grid gap-3 lg:grid-cols-2 laptop:gap-2 2xl:gap-3">
               {items.map((item, index) => (
-                <li key={item} className="group flex min-h-[88px] items-start gap-4 rounded-2xl border border-slate-200 bg-[#fafafa] p-4 transition-colors hover:border-slate-300 hover:bg-white xl:min-h-[76px] xl:p-3 2xl:min-h-[88px] 2xl:p-4">
+                <li key={item} className="group flex min-h-[88px] items-start gap-4 rounded-2xl border border-slate-200 bg-[#fafafa] p-4 transition-colors hover:border-slate-300 hover:bg-white laptop:min-h-[72px] laptop:gap-3 laptop:p-3 2xl:min-h-[88px] 2xl:gap-4 2xl:p-4">
                   <span className={`pt-0.5 text-xs font-black ${styles.number}`}>{String(index + 1).padStart(2, '0')}</span>
                   <span className="flex-1 text-sm leading-6 font-medium text-slate-700">{item}</span>
                   {selectedCategoryId === 'questions' && (
@@ -254,7 +256,7 @@ function SectorExplorer() {
           </div>
         </div>
 
-        <div className="mt-5 flex items-start gap-3 rounded-xl bg-slate-900 px-4 py-3 text-white sm:items-center xl:mt-4 2xl:mt-5">
+        <div className="mt-5 flex items-start gap-3 rounded-xl bg-slate-900 px-4 py-3 text-white sm:items-center laptop:mt-3 2xl:mt-5">
           <CircleHelp size={18} className="mt-0.5 shrink-0 text-red-300 sm:mt-0" aria-hidden="true" />
           <p className="text-sm leading-6 text-white/80">
             Use these prompts as a starting point, then follow the customer's language and priorities.

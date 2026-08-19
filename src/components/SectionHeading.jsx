@@ -13,14 +13,14 @@ function SectionHeading({ eyebrow, title, description, align = 'left', light = f
         </p>
       )}
       <h2
-        className={`text-3xl font-bold tracking-[-0.035em] sm:text-4xl lg:text-[2.75rem] lg:leading-tight ${
+        className={`text-3xl font-bold tracking-[-0.035em] sm:text-4xl lg:text-[2.75rem] lg:leading-tight laptop:text-[2.5rem] 2xl:text-[2.75rem] ${
           light ? 'text-white' : 'text-[#1b1b1b]'
         }`}
       >
         {title}
       </h2>
       {description && (
-        <p className={`mt-4 text-base leading-7 sm:text-lg xl:mt-3 2xl:mt-4 ${light ? 'text-white/70' : 'text-slate-600'}`}>
+        <p className={`mt-4 text-base leading-7 sm:text-lg laptop:mt-3 2xl:mt-4 ${light ? 'text-white/70' : 'text-slate-600'}`}>
           {description}
         </p>
       )}
