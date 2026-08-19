@@ -10,6 +10,9 @@ import {
   Target,
 } from 'lucide-react'
 import { formatMeetingBrief } from '../utils/meetingBrief'
+import { trackEvent } from '../utils/analytics'
+import { ANALYTICS_EVENTS } from '../utils/analyticsEvents'
+import MeetingFeedback from './MeetingFeedback'
 
 const briefSections = [
   { key: 'challenges', title: 'Likely Customer Challenges', icon: AlertTriangle, accent: 'bg-amber-50 text-amber-700' },
@@ -27,6 +30,11 @@ function MeetingBrief({ brief, headingRef, onReset }) {
   const copyBrief = async () => {
     try {
       await navigator.clipboard.writeText(formatMeetingBrief(brief))
+      trackEvent(ANALYTICS_EVENTS.MEETING_BRIEF_COPIED, {
+        sector: brief.sector.name,
+        priority: brief.priority.analyticsValue,
+        stage: brief.stage.analyticsValue,
+      })
       setCopyStatus('copied')
     } catch {
       setCopyStatus('error')
@@ -124,6 +132,7 @@ function MeetingBrief({ brief, headingRef, onReset }) {
             </div>
           </div>
         </section>
+        <MeetingFeedback brief={brief} />
       </div>
     </article>
   )

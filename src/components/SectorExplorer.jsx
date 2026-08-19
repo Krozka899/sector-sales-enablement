@@ -15,6 +15,8 @@ import {
   Truck,
 } from 'lucide-react'
 import { sectors } from '../data/sectors'
+import { trackEvent } from '../utils/analytics'
+import { ANALYTICS_EVENTS } from '../utils/analyticsEvents'
 import SectionHeading from './SectionHeading'
 
 const sectorIcons = {
@@ -40,6 +42,7 @@ const categories = [
     shortLabel: 'Challenges',
     icon: AlertTriangle,
     accent: 'amber',
+    analyticsValue: 'customer_challenges',
     helper: 'Operational and strategic pressures to listen for',
   },
   {
@@ -48,6 +51,7 @@ const categories = [
     shortLabel: 'Outcomes',
     icon: Target,
     accent: 'emerald',
+    analyticsValue: 'business_outcomes',
     helper: 'The results the customer is likely working towards',
   },
   {
@@ -56,6 +60,7 @@ const categories = [
     shortLabel: 'Why Vodafone',
     icon: RadioTower,
     accent: 'red',
+    analyticsValue: 'why_vodafone',
     helper: 'Relevant capabilities to connect to the requirement',
   },
   {
@@ -64,6 +69,7 @@ const categories = [
     shortLabel: 'Questions',
     icon: MessageSquareText,
     accent: 'blue',
+    analyticsValue: 'discovery_questions',
     helper: 'Prompts to open a more valuable customer conversation',
   },
 ]
@@ -90,12 +96,21 @@ function SectorExplorer() {
   useEffect(() => () => window.clearTimeout(copyTimer.current), [])
 
   const selectSector = (sectorId) => {
+    const sector = sectors.find((item) => item.id === sectorId)
+    trackEvent(ANALYTICS_EVENTS.SECTOR_SELECTED, { sector: sector.name })
     setSelectedSectorId(sectorId)
     setSelectedCategoryId('challenges')
     setCopiedIndex(null)
   }
 
   const selectCategory = (categoryId) => {
+    if (categoryId === selectedCategoryId) return
+
+    const category = categories.find((item) => item.id === categoryId)
+    trackEvent(ANALYTICS_EVENTS.CONVERSATION_TAB_SELECTED, {
+      sector: selectedSector.name,
+      tab: category.analyticsValue,
+    })
     setSelectedCategoryId(categoryId)
     setCopiedIndex(null)
   }

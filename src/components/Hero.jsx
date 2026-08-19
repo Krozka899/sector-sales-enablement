@@ -1,4 +1,6 @@
 import { ArrowDown, ArrowRight, BriefcaseBusiness, CircleCheck, ClipboardList, RadioTower, TriangleAlert } from 'lucide-react'
+import { trackEvent } from '../utils/analytics'
+import { ANALYTICS_EVENTS } from '../utils/analyticsEvents'
 
 const journey = [
   { label: 'Challenge', icon: TriangleAlert },
@@ -34,7 +36,11 @@ function Hero() {
               How to use this tool
               <ArrowRight size={17} aria-hidden="true" />
             </a>
-            <a href="#meeting-prep" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 px-5 py-3 text-sm font-bold text-[#d90000] transition hover:border-red-300 hover:bg-red-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e60000]">
+            <a
+              href="#meeting-prep"
+              onClick={() => trackEvent(ANALYTICS_EVENTS.MEETING_PREP_STARTED)}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 px-5 py-3 text-sm font-bold text-[#d90000] transition hover:border-red-300 hover:bg-red-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e60000]"
+            >
               Prepare for my meeting
               <ClipboardList size={17} aria-hidden="true" />
             </a>

@@ -20,6 +20,8 @@ import {
 import { conversationStages, meetingPriorities } from '../data/meetingOptions'
 import { sectors } from '../data/sectors'
 import { createMeetingBrief } from '../utils/meetingBrief'
+import { trackEvent } from '../utils/analytics'
+import { ANALYTICS_EVENTS } from '../utils/analyticsEvents'
 import MeetingBrief from './MeetingBrief'
 import SectionHeading from './SectionHeading'
 
@@ -76,6 +78,8 @@ function MeetingPrep() {
 
   const selectSector = (sectorId) => {
     if (sectorId === selectedSectorId) return
+    const sector = sectors.find((item) => item.id === sectorId)
+    trackEvent(ANALYTICS_EVENTS.MEETING_SECTOR_SELECTED, { sector: sector.name })
     setSelectedSectorId(sectorId)
     setSelectedPriorityId(null)
     setSelectedStageId(null)
@@ -84,6 +88,8 @@ function MeetingPrep() {
 
   const selectPriority = (priorityId) => {
     if (priorityId === selectedPriorityId) return
+    const priority = meetingPriorities.find((item) => item.id === priorityId)
+    trackEvent(ANALYTICS_EVENTS.MEETING_PRIORITY_SELECTED, { priority: priority.analyticsValue })
     setSelectedPriorityId(priorityId)
     setSelectedStageId(null)
     setBriefGenerated(false)
@@ -91,11 +97,23 @@ function MeetingPrep() {
 
   const selectStage = (stageId) => {
     if (stageId === selectedStageId) return
+    const stage = conversationStages.find((item) => item.id === stageId)
+    trackEvent(ANALYTICS_EVENTS.MEETING_STAGE_SELECTED, { stage: stage.analyticsValue })
     setSelectedStageId(stageId)
     setBriefGenerated(false)
   }
 
+  const generateBrief = () => {
+    trackEvent(ANALYTICS_EVENTS.MEETING_BRIEF_GENERATED, {
+      sector: selectedSector.name,
+      priority: selectedPriority.analyticsValue,
+      stage: selectedStage.analyticsValue,
+    })
+    setBriefGenerated(true)
+  }
+
   const resetFlow = () => {
+    trackEvent(ANALYTICS_EVENTS.MEETING_PREP_RESET, { brief_generated: briefGenerated })
     setSelectedSectorId(null)
     setSelectedPriorityId(null)
     setSelectedStageId(null)
@@ -219,7 +237,7 @@ function MeetingPrep() {
             <div className="mt-6 flex justify-end border-t border-slate-200 pt-5">
               <button
                 type="button"
-                onClick={() => setBriefGenerated(true)}
+                onClick={generateBrief}
                 className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#e60000] px-5 py-3 text-sm font-bold text-white shadow-[0_8px_24px_rgba(230,0,0,0.18)] transition hover:bg-[#bd0000] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e60000]"
               >
                 <ClipboardList size={17} aria-hidden="true" />
