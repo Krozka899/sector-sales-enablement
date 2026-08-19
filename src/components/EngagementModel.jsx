@@ -39,7 +39,7 @@ const shapePath = ['Customer Challenge', 'Business Impact', 'Desired Outcome', '
 
 function EngagementModel() {
   return (
-    <section id="sales-presales" className="scroll-mt-20 bg-[#181818] py-20 sm:py-24">
+    <section id="sales-presales" className="scroll-mt-20 bg-[#181818] py-20 sm:py-24 xl:py-16 2xl:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Working together"
@@ -48,26 +48,26 @@ function EngagementModel() {
           light
         />
 
-        <div className="relative mt-12">
+        <div className="relative mt-12 xl:mt-8 2xl:mt-12">
           <div aria-hidden="true" className="absolute top-8 right-[10%] left-[10%] hidden h-px bg-white/15 lg:block" />
           <ol className="grid gap-4 lg:grid-cols-5">
             {steps.map(({ number, title, text, icon: Icon, featured }) => (
-              <li key={title} className={`relative rounded-2xl border p-5 ${featured ? 'border-red-500/60 bg-[#e60000]' : 'border-white/10 bg-white/[0.045]'}`}>
+              <li key={title} className={`relative rounded-2xl border p-5 xl:p-4 2xl:p-5 ${featured ? 'border-red-500/60 bg-[#e60000]' : 'border-white/10 bg-white/[0.045]'}`}>
                 <div className="flex items-center justify-between">
                   <span className={`relative z-10 grid size-11 place-items-center rounded-xl ${featured ? 'bg-white text-[#e60000]' : 'bg-white/10 text-white'}`}>
                     <Icon size={20} strokeWidth={1.8} aria-hidden="true" />
                   </span>
                   <span className={`text-xs font-black tracking-wider ${featured ? 'text-white/70' : 'text-white/35'}`}>{number}</span>
                 </div>
-                <h3 className="mt-6 text-lg font-bold text-white">{title}</h3>
+                <h3 className="mt-6 text-lg font-bold text-white xl:mt-4 2xl:mt-6">{title}</h3>
                 <p className={`mt-2 text-sm leading-6 ${featured ? 'text-white/85' : 'text-white/60'}`}>{text}</p>
               </li>
             ))}
           </ol>
         </div>
 
-        <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.045] p-5 sm:p-6">
-          <p className="mb-4 text-xs font-bold tracking-[0.16em] text-red-300 uppercase">Shape the value story</p>
+        <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.045] p-5 sm:p-6 xl:mt-4 xl:p-4 2xl:mt-6 2xl:p-6">
+          <p className="mb-4 text-xs font-bold tracking-[0.16em] text-red-300 uppercase xl:mb-3 2xl:mb-4">Shape the value story</p>
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
             {shapePath.map((item, index) => (
               <div key={item} className="contents">

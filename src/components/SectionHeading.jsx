@@ -20,7 +20,7 @@ function SectionHeading({ eyebrow, title, description, align = 'left', light = f
         {title}
       </h2>
       {description && (
-        <p className={`mt-4 text-base leading-7 sm:text-lg ${light ? 'text-white/70' : 'text-slate-600'}`}>
+        <p className={`mt-4 text-base leading-7 sm:text-lg xl:mt-3 2xl:mt-4 ${light ? 'text-white/70' : 'text-slate-600'}`}>
           {description}
         </p>
       )}

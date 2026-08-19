@@ -27,7 +27,7 @@ function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-sm">
-      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8 xl:h-16 2xl:h-[72px]">
         <a href="#home" className="flex items-center gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e60000]">
           <BrandMark />
           <span className="text-[15px] font-bold tracking-[-0.01em] text-[#1b1b1b] sm:text-base">
