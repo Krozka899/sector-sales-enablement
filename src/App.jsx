@@ -3,6 +3,7 @@ import EngagementModel from './components/EngagementModel'
 import FinalCta from './components/FinalCta'
 import Footer from './components/Footer'
 import Hero from './components/Hero'
+import MeetingPrep from './components/MeetingPrep'
 import Navbar from './components/Navbar'
 import PresalesChecklist from './components/PresalesChecklist'
 import SectorExplorer from './components/SectorExplorer'
@@ -18,6 +19,7 @@ function App() {
       <main id="main-content" tabIndex={-1} className="outline-none">
         <Hero />
         <Benefits />
+        <MeetingPrep />
         <SectorExplorer />
         <EngagementModel />
         <PresalesChecklist />
