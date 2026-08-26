@@ -1,0 +1,33 @@
+export const whyNowTriggers = [
+  ['contract_renewal', 'Contract renewal'],
+  ['data_centre_closure', 'Data centre closure'],
+  ['security_incident', 'Security incident'],
+  ['regulatory_change', 'Regulatory change'],
+  ['transformation_programme', 'Transformation programme'],
+  ['acquisition', 'Acquisition or integration'],
+  ['rapid_growth', 'Rapid growth'],
+  ['cost_reduction_target', 'Cost reduction target'],
+  ['technology_refresh', 'Technology refresh'],
+  ['new_sites', 'New sites or locations'],
+  ['workforce_change', 'Workforce change'],
+  ['cloud_migration', 'Cloud migration'],
+  ['ai_programme', 'AI programme'],
+  ['service_performance_issue', 'Operational or service performance issue'],
+  ['resilience_requirement', 'Resilience requirement'],
+  ['unknown', 'Not yet known'],
+].map(([id, label]) => ({ id, label }))
+
+export const businessImpacts = [
+  ['revenue_risk', 'Revenue risk'],
+  ['productivity_loss', 'Productivity loss'],
+  ['customer_experience', 'Customer experience'],
+  ['operational_disruption', 'Operational disruption'],
+  ['security_risk', 'Security risk'],
+  ['compliance_risk', 'Compliance risk'],
+  ['increased_cost', 'Increased cost'],
+  ['slow_change', 'Slow pace of change'],
+  ['limited_visibility', 'Limited visibility'],
+  ['service_availability', 'Service availability'],
+  ['growth_constraint', 'Growth constraint'],
+  ['unknown', 'Not yet known'],
+].map(([id, label]) => ({ id, label }))

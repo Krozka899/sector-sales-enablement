@@ -37,6 +37,12 @@ const steps = [
 
 const shapePath = ['Customer Challenge', 'Business Impact', 'Desired Outcome', 'Vodafone Capability', 'Measurable Value']
 
+const responsibilities = [
+  ['Sales owns', 'Business context, customer challenge, urgency, impact, outcomes, high-level qualification and stakeholder roles.'],
+  ['Presales owns', 'Technical validation, architecture, requirements, risks, dependencies, specialist input and solution shaping.'],
+  ['Shared', 'Engagement objectives, discovery gaps, customer discussion, next actions and preparation for the next technical session.'],
+]
+
 function EngagementModel() {
   return (
     <section id="sales-presales" className="scroll-mt-20 bg-[#181818] py-20 sm:py-24 laptop:py-14 2xl:py-24">
@@ -76,6 +82,9 @@ function EngagementModel() {
               </div>
             ))}
           </div>
+        </div>
+        <div className="mt-6 grid gap-3 md:grid-cols-3" aria-label="Sales and Presales responsibilities">
+          {responsibilities.map(([title, text]) => <article key={title} className="rounded-2xl border border-white/10 bg-white/[0.045] p-5"><h3 className="text-sm font-bold text-white">{title}</h3><p className="mt-2 text-sm leading-6 text-white/60">{text}</p></article>)}
         </div>
       </div>
     </section>

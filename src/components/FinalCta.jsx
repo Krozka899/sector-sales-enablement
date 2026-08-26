@@ -14,7 +14,7 @@ function FinalCta() {
               Sector-specific Presales enables Sales to move the conversation away from individual products and towards the business outcomes that matter most to the customer.
             </p>
           </div>
-          <a href="#sectors" className="relative mt-8 inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#d90000] shadow-lg transition hover:bg-red-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:mt-0">
+          <a href="#/sectors" className="relative mt-8 inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#d90000] shadow-lg transition hover:bg-red-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:mt-0">
             Explore sectors
             <ArrowUpRight size={17} aria-hidden="true" />
           </a>

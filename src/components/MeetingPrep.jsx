@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   BadgeCheck,
+  BadgePoundSterling,
   Check,
   ClipboardList,
   CloudCog,
   CodeXml,
   Factory,
+  GraduationCap,
   HardHat,
+  HeartPulse,
+  Landmark,
   LockKeyhole,
   RadioTower,
   Search,
@@ -16,9 +20,12 @@ import {
   Truck,
   Users,
   Wifi,
+  Zap,
 } from 'lucide-react'
 import { conversationStages, meetingPriorities } from '../data/meetingOptions'
 import { sectors } from '../data/sectors'
+import { useJourney } from '../context/useJourney'
+import { useOpportunityWorkspaces } from '../context/useOpportunityWorkspaces'
 import { createMeetingBrief } from '../utils/meetingBrief'
 import { trackEvent } from '../utils/analytics'
 import { ANALYTICS_EVENTS } from '../utils/analyticsEvents'
@@ -31,6 +38,11 @@ const sectorIcons = {
   store: Store,
   code: CodeXml,
   'hard-hat': HardHat,
+  landmark: Landmark,
+  'heart-pulse': HeartPulse,
+  'badge-pound-sterling': BadgePoundSterling,
+  zap: Zap,
+  'graduation-cap': GraduationCap,
 }
 
 const priorityIcons = {
@@ -57,19 +69,23 @@ function StepHeader({ number, question }) {
   )
 }
 
-function MeetingPrep() {
-  const [selectedSectorId, setSelectedSectorId] = useState(null)
+function MeetingPrepFlow() {
+  const { state: journeyState, presalesRecommendation } = useJourney()
+  const { activeWorkspace } = useOpportunityWorkspaces()
+  const journeyContextAvailable = Boolean(activeWorkspace && (journeyState.sectorId || journeyState.primarySituationId || journeyState.businessOutcomeIds.length || journeyState.selectedCapabilityIds.length))
+  const [useJourneyContext, setUseJourneyContext] = useState(journeyContextAvailable)
+  const [selectedSectorId, setSelectedSectorId] = useState(journeyState.sectorId)
+  const [selectedStageId, setSelectedStageId] = useState(journeyState.conversationStageId)
   const [selectedPriorityId, setSelectedPriorityId] = useState(null)
-  const [selectedStageId, setSelectedStageId] = useState(null)
   const [briefGenerated, setBriefGenerated] = useState(false)
-  const firstSectorRef = useRef(null)
   const briefHeadingRef = useRef(null)
 
-  const selectedSector = sectors.find((sector) => sector.id === selectedSectorId)
+  const availableSectors = sectors
+  const selectedSector = availableSectors.find((sector) => sector.id === selectedSectorId)
   const selectedPriority = meetingPriorities.find((priority) => priority.id === selectedPriorityId)
   const selectedStage = conversationStages.find((stage) => stage.id === selectedStageId)
   const brief = briefGenerated && selectedSector && selectedPriority && selectedStage
-    ? createMeetingBrief(selectedSector, selectedPriority, selectedStage)
+    ? createMeetingBrief(selectedSector, selectedPriority, selectedStage, useJourneyContext ? journeyState : null, useJourneyContext ? presalesRecommendation : null, useJourneyContext ? activeWorkspace?.navigatorReference : null)
     : null
 
   useEffect(() => {
@@ -78,9 +94,10 @@ function MeetingPrep() {
 
   const selectSector = (sectorId) => {
     if (sectorId === selectedSectorId) return
-    const sector = sectors.find((item) => item.id === sectorId)
+    const sector = availableSectors.find((item) => item.id === sectorId)
     trackEvent(ANALYTICS_EVENTS.MEETING_SECTOR_SELECTED, { sector: sector.name })
-    setSelectedSectorId(sectorId)
+    setSelectedSectorId(sector.id)
+    if (sector.id !== journeyState.sectorId) setUseJourneyContext(false)
     setSelectedPriorityId(null)
     setSelectedStageId(null)
     setBriefGenerated(false)
@@ -91,7 +108,7 @@ function MeetingPrep() {
     const priority = meetingPriorities.find((item) => item.id === priorityId)
     trackEvent(ANALYTICS_EVENTS.MEETING_PRIORITY_SELECTED, { priority: priority.analyticsValue })
     setSelectedPriorityId(priorityId)
-    setSelectedStageId(null)
+    setSelectedStageId(useJourneyContext ? journeyState.conversationStageId : null)
     setBriefGenerated(false)
   }
 
@@ -114,15 +131,29 @@ function MeetingPrep() {
 
   const resetFlow = () => {
     trackEvent(ANALYTICS_EVENTS.MEETING_PREP_RESET, { brief_generated: briefGenerated })
+    setSelectedPriorityId(null)
+    setBriefGenerated(false)
+    window.requestAnimationFrame(() => document.getElementById('meeting-sector-first')?.focus())
+  }
+
+  const startFresh = () => {
+    setUseJourneyContext(false)
     setSelectedSectorId(null)
     setSelectedPriorityId(null)
     setSelectedStageId(null)
     setBriefGenerated(false)
-    window.requestAnimationFrame(() => firstSectorRef.current?.focus())
+    window.requestAnimationFrame(() => document.getElementById('meeting-sector-first')?.focus())
+  }
+
+  const inheritJourneyContext = () => {
+    setUseJourneyContext(true)
+    setSelectedSectorId(journeyState.sectorId)
+    setSelectedStageId(journeyState.conversationStageId)
+    setBriefGenerated(false)
   }
 
   return (
-    <section id="meeting-prep" className="scroll-mt-20 border-y border-slate-200 bg-[#fafafa] py-20 sm:py-24 laptop:py-14 2xl:py-24">
+    <section id="meeting-prep" className="min-h-screen border-y border-slate-200 bg-[#fafafa] py-8 sm:py-10 lg:py-12">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Meeting preparation"
@@ -133,19 +164,21 @@ function MeetingPrep() {
           Select the sector, customer priority and conversation stage to generate a focused meeting guide.
         </p>
 
+        {journeyContextAvailable && <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3"><p className="text-sm text-slate-700"><strong>{useJourneyContext ? `Using context from ${activeWorkspace.navigatorReference}.` : `Context from ${activeWorkspace.navigatorReference} is available.`}</strong> You can still prepare this brief independently.</p><button type="button" onClick={useJourneyContext ? startFresh : inheritJourneyContext} className="min-h-10 rounded-lg bg-white px-3 py-2 text-sm font-bold text-blue-800 ring-1 ring-blue-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e60000]">{useJourneyContext ? 'Start fresh' : `Use context from ${activeWorkspace.navigatorReference}`}</button></div>}
+
         <div className="mt-8 rounded-3xl border border-slate-200 bg-white p-5 shadow-[0_16px_45px_rgba(15,23,42,0.06)] sm:p-7 laptop:mt-6 laptop:p-5 2xl:mt-8 2xl:p-7">
           <fieldset>
             <legend className="sr-only">Which sector are you meeting?</legend>
             <StepHeader number="1" question="Which sector are you meeting?" />
             <div className="grid gap-2.5 sm:grid-cols-2 laptop:grid-cols-5" role="group" aria-label="Select a sector">
-              {sectors.map((sector, index) => {
+              {availableSectors.map((sector, index) => {
                 const Icon = sectorIcons[sector.icon]
                 const selected = sector.id === selectedSectorId
 
                 return (
                   <button
                     key={sector.id}
-                    ref={index === 0 ? firstSectorRef : undefined}
+                    id={index === 0 ? 'meeting-sector-first' : undefined}
                     type="button"
                     aria-pressed={selected}
                     onClick={() => selectSector(sector.id)}
@@ -251,6 +284,10 @@ function MeetingPrep() {
       </div>
     </section>
   )
+}
+
+function MeetingPrep() {
+  return <MeetingPrepFlow />
 }
 
 export default MeetingPrep
