@@ -1,20 +1,27 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   AlertTriangle,
+  BadgePoundSterling,
   Check,
   CircleHelp,
   Clipboard,
   CodeXml,
   Copy,
   Factory,
+  GraduationCap,
   HardHat,
+  HeartPulse,
+  Landmark,
   MessageSquareText,
   RadioTower,
   Store,
   Target,
   Truck,
+  Zap,
 } from 'lucide-react'
 import { sectors } from '../data/sectors'
+import { useJourney } from '../context/useJourney'
+import { getJourneySectorId } from '../utils/journeyAdapters'
 import { trackEvent } from '../utils/analytics'
 import { ANALYTICS_EVENTS } from '../utils/analyticsEvents'
 import SectionHeading from './SectionHeading'
@@ -25,15 +32,12 @@ const sectorIcons = {
   store: Store,
   code: CodeXml,
   'hard-hat': HardHat,
+  landmark: Landmark,
+  'heart-pulse': HeartPulse,
+  'badge-pound-sterling': BadgePoundSterling,
+  zap: Zap,
+  'graduation-cap': GraduationCap,
 }
-
-const sectorGridPositions = [
-  'laptop:col-start-1 laptop:row-start-1 2xl:col-start-auto 2xl:row-start-auto',
-  'laptop:col-start-3 laptop:row-start-1 2xl:col-start-auto 2xl:row-start-auto',
-  'laptop:col-start-5 laptop:row-start-1 2xl:col-start-auto 2xl:row-start-auto',
-  'laptop:col-start-2 laptop:row-start-2 2xl:col-start-auto 2xl:row-start-auto',
-  'laptop:col-start-4 laptop:row-start-2 2xl:col-start-auto 2xl:row-start-auto',
-]
 
 const categories = [
   {
@@ -82,11 +86,13 @@ const accentStyles = {
 }
 
 function SectorExplorer() {
-  const [selectedSectorId, setSelectedSectorId] = useState(sectors[0].id)
+  const { state: journeyState, setSector: setJourneySector } = useJourney()
   const [selectedCategoryId, setSelectedCategoryId] = useState(categories[0].id)
   const [copiedIndex, setCopiedIndex] = useState(null)
+  const [copyError, setCopyError] = useState(false)
   const copyTimer = useRef(null)
 
+  const selectedSectorId = journeyState.sectorId ?? sectors[0].id
   const selectedSector = sectors.find((sector) => sector.id === selectedSectorId)
   const selectedCategory = categories.find((category) => category.id === selectedCategoryId)
   const items = selectedSector[selectedCategoryId]
@@ -98,9 +104,10 @@ function SectorExplorer() {
   const selectSector = (sectorId) => {
     const sector = sectors.find((item) => item.id === sectorId)
     trackEvent(ANALYTICS_EVENTS.SECTOR_SELECTED, { sector: sector.name })
-    setSelectedSectorId(sectorId)
+    setJourneySector(getJourneySectorId(sectorId))
     setSelectedCategoryId('challenges')
     setCopiedIndex(null)
+    setCopyError(false)
   }
 
   const selectCategory = (categoryId) => {
@@ -113,6 +120,7 @@ function SectorExplorer() {
     })
     setSelectedCategoryId(categoryId)
     setCopiedIndex(null)
+    setCopyError(false)
   }
 
   const handleTabKeyDown = (event) => {
@@ -137,10 +145,12 @@ function SectorExplorer() {
     try {
       await navigator.clipboard.writeText(question)
       setCopiedIndex(index)
+      setCopyError(false)
       window.clearTimeout(copyTimer.current)
       copyTimer.current = window.setTimeout(() => setCopiedIndex(null), 1800)
     } catch {
       setCopiedIndex(null)
+      setCopyError(true)
     }
   }
 
@@ -153,8 +163,8 @@ function SectorExplorer() {
           description="Select your customer's sector to prepare for a stronger conversation."
         />
 
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 laptop:mt-6 laptop:grid-cols-6 laptop:gap-2 2xl:mt-10 2xl:grid-cols-5 2xl:gap-3" role="group" aria-label="Available sectors">
-          {sectors.map((sector, index) => {
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5 laptop:mt-6 laptop:gap-2 2xl:mt-10 2xl:gap-3" role="group" aria-label="Available sectors">
+          {sectors.map((sector) => {
             const Icon = sectorIcons[sector.icon]
             const selected = sector.id === selectedSectorId
 
@@ -164,20 +174,20 @@ function SectorExplorer() {
                 type="button"
                 aria-pressed={selected}
                 onClick={() => selectSector(sector.id)}
-                className={`group relative min-h-44 overflow-hidden rounded-2xl border p-5 text-left transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e60000] laptop:col-span-2 laptop:flex laptop:min-h-[112px] laptop:items-start laptop:gap-3 laptop:p-3.5 2xl:col-span-1 2xl:block 2xl:min-h-44 2xl:p-5 ${sectorGridPositions[index] ?? ''} ${
+                className={`group relative min-h-40 overflow-hidden rounded-2xl border p-4 text-left transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e60000] laptop:min-h-[104px] laptop:p-3.5 2xl:min-h-40 2xl:p-4 ${
                   selected
                     ? 'border-[#e60000] bg-[#e60000] text-white shadow-[0_16px_40px_rgba(230,0,0,0.2)]'
                     : 'border-slate-200 bg-white text-[#1b1b1b] hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-lg'
                 }`}
               >
-                <span className={`grid size-11 shrink-0 place-items-center rounded-xl laptop:size-9 2xl:size-11 ${selected ? 'bg-white/15 text-white' : 'bg-slate-100 text-slate-700 group-hover:bg-red-50 group-hover:text-[#e60000]'}`}>
+                <span className={`grid size-10 shrink-0 place-items-center rounded-xl laptop:size-9 2xl:size-10 ${selected ? 'bg-white/15 text-white' : 'bg-slate-100 text-slate-700 group-hover:bg-red-50 group-hover:text-[#e60000]'}`}>
                   <Icon size={22} strokeWidth={1.8} aria-hidden="true" />
                 </span>
-                <span className="block laptop:min-w-0 laptop:flex-1 laptop:pr-5 2xl:pr-0">
-                  <span className="mt-5 block text-base leading-snug font-bold laptop:mt-0 2xl:mt-5">{sector.name}</span>
-                  <span className={`mt-2 block text-xs leading-5 laptop:mt-1 2xl:mt-2 ${selected ? 'text-white/75' : 'text-slate-500'}`}>{sector.description}</span>
+                <span className="block min-w-0 pr-4">
+                  <span className="mt-3 block text-sm leading-snug font-bold laptop:mt-2 2xl:mt-3">{sector.name}</span>
+                  <span className={`mt-1.5 block text-xs leading-5 ${selected ? 'text-white/75' : 'text-slate-500'}`}>{sector.description}</span>
                 </span>
-                {selected && <Check className="absolute top-5 right-5 laptop:top-3.5 laptop:right-3.5 2xl:top-5 2xl:right-5" size={19} aria-hidden="true" />}
+                {selected && <Check className="absolute top-4 right-4 laptop:top-3.5 laptop:right-3.5" size={18} aria-hidden="true" />}
               </button>
             )
           })}
@@ -267,7 +277,7 @@ function SectorExplorer() {
                 </li>
               ))}
             </ol>
-            <p className="sr-only" aria-live="polite">{copiedIndex !== null ? 'Question copied to clipboard' : ''}</p>
+            <p className="sr-only" aria-live="polite">{copiedIndex !== null ? 'Question copied to clipboard' : copyError ? 'Question could not be copied. Try again.' : ''}</p>
           </div>
         </div>
 

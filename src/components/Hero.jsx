@@ -19,17 +19,17 @@ function Hero() {
         <div className="max-w-3xl">
           <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-red-200 bg-white px-3 py-1.5 text-xs font-bold tracking-[0.18em] text-[#d90000] uppercase shadow-sm laptop:mb-4 2xl:mb-5">
             <span className="size-1.5 rounded-full bg-[#e60000]" />
-            Sales enablement
+            Sales & Presales enablement
           </p>
           <h1 className="max-w-4xl text-4xl leading-[1.06] font-bold tracking-[-0.045em] text-[#181818] sm:text-5xl lg:text-[4rem] laptop:text-[3.5rem] 2xl:text-[4rem]">
-            Turn customer challenges into <span className="text-[#e60000]">stronger conversations.</span>
+            Navigate customer challenges into <span className="text-[#e60000]">stronger opportunities.</span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl laptop:mt-4 laptop:text-lg laptop:leading-7 2xl:mt-6 2xl:text-xl 2xl:leading-8">
-            Sector-specific insight to help Sales identify customer priorities, connect them to business outcomes and position the right Vodafone capabilities.
+            A connected, privacy-first experience to help Sales explore, discover, shape and prepare — then carry structured context into Presales.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row laptop:mt-5 2xl:mt-8">
-            <a href="#sectors" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#e60000] px-5 py-3 text-sm font-bold text-white shadow-[0_8px_24px_rgba(230,0,0,0.2)] transition hover:bg-[#bd0000] hover:shadow-[0_10px_30px_rgba(230,0,0,0.28)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e60000]">
-              Explore sectors
+            <a href="#/opportunity-workspaces" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#e60000] px-5 py-3 text-sm font-bold text-white shadow-[0_8px_24px_rgba(230,0,0,0.2)] transition hover:bg-[#bd0000] hover:shadow-[0_10px_30px_rgba(230,0,0,0.28)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e60000]">
+              Open opportunity workspaces
               <ArrowDown size={17} aria-hidden="true" />
             </a>
             <a href="#why-it-matters" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-[#1b1b1b] transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e60000]">
@@ -37,7 +37,7 @@ function Hero() {
               <ArrowRight size={17} aria-hidden="true" />
             </a>
             <a
-              href="#meeting-prep"
+              href="#/prepare-meeting"
               onClick={() => trackEvent(ANALYTICS_EVENTS.MEETING_PREP_STARTED)}
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 px-5 py-3 text-sm font-bold text-[#d90000] transition hover:border-red-300 hover:bg-red-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e60000]"
             >

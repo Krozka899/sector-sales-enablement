@@ -1,6 +1,6 @@
-export const sectors = [
+const sectorContent = [
   {
-    id: 'distribution-transport-logistics',
+    id: 'transport_logistics',
     shortName: 'Transport & Logistics',
     name: 'Distribution, Transport & Logistics',
     icon: 'truck',
@@ -135,7 +135,7 @@ export const sectors = [
     ],
   },
   {
-    id: 'technology-digital',
+    id: 'technology_digital',
     shortName: 'Technology & Digital',
     name: 'Technology & Digital',
     icon: 'code',
@@ -180,7 +180,7 @@ export const sectors = [
     ],
   },
   {
-    id: 'construction-infrastructure',
+    id: 'construction_engineering',
     shortName: 'Construction & Infrastructure',
     name: 'Construction & Infrastructure',
     icon: 'hard-hat',
@@ -222,4 +222,191 @@ export const sectors = [
       'Are there projects where a private 5G or dedicated network could provide greater control, performance or resilience?',
     ],
   },
+  {
+    id: 'public_sector',
+    shortName: 'Public Sector',
+    name: 'Public Sector & Government',
+    icon: 'landmark',
+    description: 'Support secure, resilient public services and responsible digital transformation.',
+    challenges: [
+      'Modernising ageing infrastructure while maintaining continuity of essential public services.',
+      'Meeting governance, assurance, data-protection and regulatory requirements.',
+      'Connecting distributed teams, offices and service locations securely.',
+      'Balancing transformation priorities with constrained budgets and specialist resources.',
+    ],
+    outcomes: [
+      'More resilient and accessible digital public services.',
+      'Improved security, governance and operational visibility.',
+      'Simpler connectivity across distributed public-service locations.',
+      'A clearer, controlled path from legacy environments to cloud-enabled services.',
+    ],
+    capabilities: [
+      'Connectivity capabilities to explore for distributed offices, service locations and cloud access.',
+      'Security and SASE / SSE capabilities to explore for users, applications and locations.',
+      'Cloud & Hosting capabilities to explore for governed workload modernisation.',
+      'Managed Services capabilities to explore where operational capacity or supplier complexity is a concern.',
+    ],
+    questions: [
+      'Which public services are most affected by infrastructure or connectivity limitations?',
+      'What governance, assurance or data-location requirements shape the programme?',
+      'Where do legacy platforms create the greatest operational constraint?',
+      'Which internal teams and suppliers would need to support the change?',
+    ],
+  },
+  {
+    id: 'healthcare',
+    shortName: 'Healthcare',
+    name: 'Healthcare',
+    icon: 'heart-pulse',
+    description: 'Connect healthcare locations, users and applications with resilience and security in mind.',
+    challenges: [
+      'Maintaining dependable access to important applications across clinical and administrative locations.',
+      'Protecting sensitive environments while supporting a diverse user community.',
+      'Modernising legacy infrastructure without disrupting service delivery.',
+      'Providing consistent connectivity across hospitals, clinics and remote-working contexts.',
+    ],
+    outcomes: [
+      'More resilient access to digital healthcare services and applications.',
+      'Improved security and governance across users, devices and locations.',
+      'Better-connected teams and service locations.',
+      'A controlled approach to infrastructure and cloud modernisation.',
+    ],
+    capabilities: [
+      'Connectivity and SD-WAN capabilities to explore across distributed healthcare locations.',
+      'Security and SASE / SSE capabilities to explore for secure access and policy consistency.',
+      'Cloud & Hosting capabilities to explore for appropriately governed workloads.',
+      'Managed Services capabilities to explore for monitoring, support and operational visibility.',
+    ],
+    questions: [
+      'Which services and applications are most sensitive to connectivity disruption?',
+      'How do users currently access applications across different healthcare locations?',
+      'Which security, compliance or governance constraints must discovery account for?',
+      'Where are legacy platforms limiting service improvement or resilience?',
+    ],
+  },
+  {
+    id: 'financial_services',
+    shortName: 'Financial Services',
+    name: 'Financial Services',
+    icon: 'badge-pound-sterling',
+    description: 'Shape secure, resilient and well-governed digital financial-service environments.',
+    challenges: [
+      'Meeting strict security, resilience, governance and regulatory expectations.',
+      'Supporting cloud transformation across complex legacy and hybrid estates.',
+      'Providing secure access for distributed users and third-party relationships.',
+      'Maintaining service availability across customer-facing and operational platforms.',
+    ],
+    outcomes: [
+      'Improved operational resilience and service availability.',
+      'Stronger security governance across users, networks and applications.',
+      'A controlled path to cloud and infrastructure modernisation.',
+      'Reduced complexity across connectivity, security and service operations.',
+    ],
+    capabilities: [
+      'SASE / SSE and Security capabilities to explore for secure access and policy control.',
+      'Connectivity and SD-WAN capabilities to explore for resilient application access.',
+      'Cloud & Hosting capabilities to explore for governed transformation.',
+      'Managed Services capabilities to explore for monitoring, assurance and operational support.',
+    ],
+    questions: [
+      'Which services have the most demanding resilience and availability requirements?',
+      'How are security policies applied across users, applications and locations today?',
+      'Which regulatory or assurance requirements should guide technical discovery?',
+      'Where does the current supplier or platform landscape create operational complexity?',
+    ],
+  },
+  {
+    id: 'energy_utilities',
+    shortName: 'Energy & Utilities',
+    name: 'Energy & Utilities',
+    icon: 'zap',
+    description: 'Support resilient, secure connectivity for distributed and critical operations.',
+    challenges: [
+      'Connecting remote and operational locations with differing infrastructure availability.',
+      'Improving resilience across services that support critical operations.',
+      'Managing cybersecurity risk across connected IT and operational environments.',
+      'Building operational visibility across geographically distributed assets and teams.',
+    ],
+    outcomes: [
+      'Improved resilience for critical operational communications.',
+      'Greater visibility across remote assets, locations and services.',
+      'More consistent security and governance across connected environments.',
+      'A scalable foundation for operational modernisation.',
+    ],
+    capabilities: [
+      'Connectivity and Mobile / 5G capabilities to explore for remote and resilient access.',
+      'IoT capabilities to explore for asset visibility and telemetry.',
+      'Security capabilities to explore across connected operational environments.',
+      'Managed Services capabilities to explore for monitoring, support and governance.',
+    ],
+    questions: [
+      'Which remote locations or operations are most affected by unreliable connectivity?',
+      'What resilience is required for critical communications and operational services?',
+      'How are connected assets and operational environments monitored and secured today?',
+      'Where would improved visibility have the greatest operational value?',
+    ],
+  },
+  {
+    id: 'education',
+    shortName: 'Education',
+    name: 'Education',
+    icon: 'graduation-cap',
+    description: 'Enable secure, reliable access for learning, collaboration and distributed users.',
+    challenges: [
+      'Supporting varied users, devices and access needs across campuses and remote locations.',
+      'Modernising legacy infrastructure within budget and resource constraints.',
+      'Protecting users and applications while enabling straightforward access.',
+      'Maintaining reliable connectivity for digital learning and collaboration services.',
+    ],
+    outcomes: [
+      'More reliable access to learning and collaboration platforms.',
+      'Improved security across users, devices and locations.',
+      'Simpler support for campus, remote and hybrid learning contexts.',
+      'A manageable path to infrastructure and service modernisation.',
+    ],
+    capabilities: [
+      'Connectivity capabilities to explore across campuses and distributed locations.',
+      'Unified Communications capabilities to explore for learning and collaboration.',
+      'SASE / SSE and Security capabilities to explore for secure application access.',
+      'Managed Services capabilities to explore where operational capacity is constrained.',
+    ],
+    questions: [
+      'Which learning or operational services are most affected by connectivity limitations?',
+      'How do students, staff and other users access applications across locations?',
+      'Where do security controls or legacy infrastructure create friction?',
+      'Which teams and suppliers currently support connectivity and collaboration services?',
+    ],
+  },
 ]
+
+const journeyMetadata = {
+  public_sector: { priorities: ['Security', 'Compliance', 'Digital citizen services', 'Resilience', 'Cloud adoption'], situationIds: ['regulatory_compliance', 'ageing_infrastructure', 'cyber_security_concerns', 'moving_to_cloud'] },
+  healthcare: { priorities: ['Secure application access', 'Reliable connectivity', 'Patient service improvement', 'Digital transformation'], situationIds: ['sites_keep_losing_connectivity', 'cyber_security_concerns', 'ageing_infrastructure', 'moving_to_cloud'] },
+  financial_services: { priorities: ['Cybersecurity', 'Resilience', 'Regulatory compliance', 'Cloud transformation', 'Operational efficiency'], situationIds: ['cyber_security_concerns', 'regulatory_compliance', 'resilience_improvement', 'moving_to_cloud'] },
+  retail: { priorities: ['Customer experience', 'Branch connectivity', 'Cloud adoption', 'Omnichannel operations', 'Business agility'], situationIds: ['acquisition_integration', 'sites_keep_losing_connectivity', 'opening_new_locations', 'network_complexity'] },
+  manufacturing: { priorities: ['Site connectivity', 'Operational resilience', 'Automation', 'IoT adoption', 'Cloud integration'], situationIds: ['sites_keep_losing_connectivity', 'connect_assets', 'operational_visibility', 'ageing_infrastructure'] },
+  construction_engineering: { priorities: ['Temporary site connectivity', 'Mobile workforce', 'Collaboration', 'Rapid deployment'], situationIds: ['opening_new_locations', 'distributed_workforce', 'sites_keep_losing_connectivity', 'modernise_collaboration'] },
+  transport_logistics: { priorities: ['Asset visibility', 'Fleet connectivity', 'Real-time operations', 'Business continuity'], situationIds: ['connect_assets', 'operational_visibility', 'sites_keep_losing_connectivity', 'resilience_improvement'] },
+  energy_utilities: { priorities: ['Critical infrastructure resilience', 'Operational technology connectivity', 'Cybersecurity', 'Regulatory compliance'], situationIds: ['resilience_improvement', 'cyber_security_concerns', 'regulatory_compliance', 'connect_assets'] },
+  technology_digital: { priorities: ['Cloud scale', 'Application performance', 'Automation', 'Security', 'Supplier consolidation'], situationIds: ['moving_to_cloud', 'poor_application_performance', 'too_many_suppliers', 'ai_adoption'] },
+  education: { priorities: ['Digital learning', 'Collaboration', 'Remote access', 'Secure connectivity'], situationIds: ['distributed_workforce', 'modernise_collaboration', 'ageing_infrastructure', 'cyber_security_concerns'] },
+}
+
+const sectorOrder = [
+  'public_sector',
+  'healthcare',
+  'financial_services',
+  'retail',
+  'manufacturing',
+  'construction_engineering',
+  'transport_logistics',
+  'energy_utilities',
+  'technology_digital',
+  'education',
+]
+
+export const sectors = sectorOrder.map((sectorId) => sectorContent.find((sector) => sector.id === sectorId)).map((sector) => ({
+  ...sector,
+  label: sector.name,
+  ...journeyMetadata[sector.id],
+}))
